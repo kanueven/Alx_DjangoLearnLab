@@ -1,3 +1,4 @@
+```python
 from bookshelf.models import Book
 
 # Get the book and update the title
