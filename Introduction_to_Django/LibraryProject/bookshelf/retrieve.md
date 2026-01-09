@@ -2,7 +2,7 @@
 from bookshelf.models import Book
 
 #retriev a book
-Book.objects.get(title="title")
+Book.objects.get(title="1984")
 
 # retrieve all books
 Book.objects.all()
