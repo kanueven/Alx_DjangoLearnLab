@@ -1,0 +1,38 @@
+from relationship_app.models import Author, Book, Library, Librarian
+
+#samples
+#create instances of models since in the last task we deleted them
+
+# Create Authors
+author1 = Author.objects.create(name="Hally Jackson")
+author2 = Author.objects.create(name="Jennifer Twain")
+
+# Create Books
+book1 = Book.objects.create(title = "As Good As Dead", author=author1)
+book2 = Book.objects.create(title = "The Missing Girl", author=author2)
+book3 = Book.objects.create(title = "Gone Girls", author=author1)
+
+# Create Libraries
+library1 = Library.objects.create(name="Buruburu Library")
+library1.books.set([book1, book2]) # to show many-to-many relationship
+library2 = Library.objects.create(name="National Library")
+
+#Create Librarians
+librarian1 = Librarian.objects.create(name="Roy Mwangi", library=library1)
+librarian2 = Librarian.objects.create(name="Alice Wanjiku", library=library2)   
+
+#Query Samples
+#1.Query all books by a specific author.
+hally_books = Book.objects.filter(author__name="Hally Jackson")
+print("These are by Hally Jackson:",list(hally_books))
+
+jenny_books = Book.objects.filter(author__name="Jennifer Twain")
+print("These are by Jennifer Twain:",jenny_books)
+
+#2. List all books in a library.
+buruburu_books = library1.books.all()
+print("Books in Buruburu Library:", list(buruburu_books))
+
+# 3. Retrieve the librarian for a library.
+buruburu_librarian = library1.librarian
+print("Librarian of Buruburu Library:", buruburu_librarian.name)
