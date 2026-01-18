@@ -47,4 +47,6 @@ print("Books in", library_name + ":", list(buruburu_library.books.all()))
 
 # 3. Retrieve the librarian for a library.
 buruburu_librarian = library1.librarian
+library_name = "Buruburu Library"
+librarian_name = Librarian.objects.get(Library = library_name)
 print("Librarian of Buruburu Library:", buruburu_librarian.name)
