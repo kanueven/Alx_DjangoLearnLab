@@ -18,3 +18,11 @@ class LibraryDetails(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
+    
+#login view placeholder
+def login_view(request):
+    return render(request, 'relationship_app/login.html')
+def logout_view(request):
+    return render(request, 'relationship_app/logout.html')
+def register_view(request):
+    return render(request, 'relationship_app/register.html')
