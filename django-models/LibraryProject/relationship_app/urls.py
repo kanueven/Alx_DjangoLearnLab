@@ -1,6 +1,6 @@
 from django.urls import path
 from django.http import HttpResponse
-from .views import list_books, LibraryDetails
+from .views import list_books, LibraryDetailsView
 from LibraryProject.relationship_app import views
 
 urlpatterns = [
