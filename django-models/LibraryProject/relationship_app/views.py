@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 #Function-based views and class-based views
@@ -39,20 +40,24 @@ def login_view(request):
             messages.error(request, 'Invalid credentials')
             return render(request, 'relationship_app/login.html')
     return render(request, 'relationship_app/login.html')
+
 def logout_view(request):
+    logout(request)
     return redirect('login')
+
 def register_view(request):
     if request.method == 'POST':
         #registration form submission handling would go here
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-        if password != password_confirm:
-            messages.error(request, 'Passwords do not match')
-        elif User.objects.filter(username=username).exists():
-            messages.error(request, 'Username already taken')
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registration successful. Please log in.')
+            return redirect('login')
         else:
-            return render(request, 'relationship_app/register.html')
+            messages.error(request, 'Failed registration')
+    else:
+        form = UserCreationForm()
+        return render(request, 'relationship_app/register.html', {'form': form})
         
         
     
