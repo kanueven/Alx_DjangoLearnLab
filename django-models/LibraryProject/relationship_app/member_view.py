@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 
 def is_member(user):
-    return user.is_authenticated and hasattr(user, 'memberprofile') and user.memberprofile.role == 'member'
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'member'
 
 @user_passes_test(is_member)
 def member_view(request):
