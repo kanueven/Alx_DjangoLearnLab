@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 # Create your views here.
 #Function-based views and class-based views
@@ -20,10 +24,35 @@ class LibraryDetailsView(DetailView):
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
     
-#login view placeholder
+#Authentification views (login, logout, register)
 def login_view(request):
+    if request.method == 'POST':
+        #login form submission handling would go here
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        #authenticate user
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return render(request, 'relationship_app/login.html')
     return render(request, 'relationship_app/login.html')
 def logout_view(request):
-    return render(request, 'relationship_app/logout.html')
+    return redirect('login')
 def register_view(request):
-    return render(request, 'relationship_app/register.html')
+    if request.method == 'POST':
+        #registration form submission handling would go here
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+        if password != password_confirm:
+            messages.error(request, 'Passwords do not match')
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken')
+        else:
+            return render(request, 'relationship_app/register.html')
+        
+        
+    
