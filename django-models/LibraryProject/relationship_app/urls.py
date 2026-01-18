@@ -8,7 +8,7 @@ urlpatterns = [
     #for the function-based view
     path('books/', views.list_books, name='book-list'),
     #for the class-based view(expects a pk parameter)
-    path('library/<int:pk>/', views.LibraryDetails.as_view(), name='library-detail'),
+    path('library/<int:pk>/', LibraryDetailsView.as_view(), name='library-detail'),
     #login
     path('login/',views.login_view, name='login'),
     path('logout/',views.logout_view, name='logout'),
