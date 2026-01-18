@@ -6,6 +6,6 @@ urlpatterns = [
     path('books/', list_books, name='book-list'),  # function-based view
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library-detail'),  # class-based view
     path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('register/', register_view, name='register'),
+    path('logout/', logout_view.as_view(), name='logout'),
+    path('register/', register_view.as_view(), name='register'),
 ]
