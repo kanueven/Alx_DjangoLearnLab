@@ -1,16 +1,11 @@
 from django.urls import path
-from django.http import HttpResponse
-from .views import list_books, LibraryDetailsView
-from LibraryProject.relationship_app import views
+from .views import list_books, LibraryDetailView, login_view, logout_view, register_view
 
 urlpatterns = [
-    path('',views.list_books, name='home'),
-    #for the function-based view
-    path('books/', views.list_books, name='book-list'),
-    #for the class-based view(expects a pk parameter)
-    path('library/<int:pk>/', LibraryDetailsView.as_view(), name='library-detail'),
-    #login
-    path('login/',views.login_view, name='login'),
-    path('logout/',views.logout_view, name='logout'),
-    path('register/',views.register_view, name='register')
+    path('', list_books, name='home'),  # home page shows all books
+    path('books/', list_books, name='book-list'),  # function-based view
+    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library-detail'),  # class-based view
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register'),
 ]
