@@ -23,15 +23,18 @@ librarian2 = Librarian.objects.create(name="Alice Wanjiku", library=library2)
 
 #Query Samples
 #1.Query all books by a specific author.
-hally_books = Book.objects.filter(author__name="Hally Jackson")
-print("These are by Hally Jackson:",list(hally_books))
+# hally_books = Book.objects.filter(author__name="Hally Jackson")
+# print("These are by Hally Jackson:",list(hally_books))
 
-jenny_books = Book.objects.filter(author__name="Jennifer Twain")
-print("These are by Jennifer Twain:",jenny_books)
+# jenny_books = Book.objects.filter(author__name="Jennifer Twain")
+# print("These are by Jennifer Twain:",jenny_books)
+author = Author.objects.get(name="Hally Jackson") #this fetches an author by name
+books_by_author = Author.objects.get(author = author) #this fetches all books by that author using related_name
+print("Books by", author.name + ":", list(books_by_author))
 
 #2. List all books in a library.
-buruburu_books = library1.books.all()
-print("Books in Buruburu Library:", list(buruburu_books))
+# buruburu_books = library1.books.all()
+# print("Books in Buruburu Library:", list(buruburu_books))
 #retriev a library by name
 library_name = "Buruburu Library"
 buruburu_library = Library.objects.get(name=library_name)
