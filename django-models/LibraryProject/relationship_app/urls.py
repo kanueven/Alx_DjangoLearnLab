@@ -19,8 +19,10 @@ urlpatterns = [
     path('librarian-page/', librarian_view.librarian_view, name='librarian-page'),
     path('member-page/', member_view.member_view, name='member-page'),
     
-    path('book/add/', add_book, name='add-book'),
-    path('book/edit/<int:pk>/', edit_book, name='edit-book'),
-    path('book/delete/<int:pk>/', delete_book, name='delete-book'),
+   # Custom permission URLs (checker-friendly)
+path('add_book/', add_book, name='add-book'),
+path('edit_book/<int:pk>/', edit_book, name='edit-book'),
+path('delete_book/<int:pk>/', delete_book, name='delete-book'),
+
 ]
 
