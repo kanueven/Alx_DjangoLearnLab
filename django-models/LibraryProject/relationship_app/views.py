@@ -47,6 +47,19 @@ def logout_view(request):
 
 def register_view(request):
     if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registration successful. Please log in.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'relationship_app/register.html', {'form': form})
+
+    if request.method == 'POST':
         #registration form submission handling would go here
         form = UserCreationForm(request.POST)
         if form.is_valid():
