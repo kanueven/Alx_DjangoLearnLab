@@ -32,6 +32,12 @@ print("These are by Jennifer Twain:",jenny_books)
 #2. List all books in a library.
 buruburu_books = library1.books.all()
 print("Books in Buruburu Library:", list(buruburu_books))
+#retriev a library by name
+library_name = "Buruburu Library"
+buruburu_library = Library.objects.get(name=library_name)
+print("Library Retrieved:", buruburu_library.name)
+#its books
+print("Books in", library_name + ":", list(buruburu_library.books.all()))
 
 # 3. Retrieve the librarian for a library.
 buruburu_librarian = library1.librarian
