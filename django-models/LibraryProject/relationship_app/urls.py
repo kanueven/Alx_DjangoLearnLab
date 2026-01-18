@@ -1,7 +1,7 @@
 from django.urls import path
 
 from LibraryProject.relationship_app.member_view import member_view, librarian_view, admin_view
-from .views import list_books, LibraryDetailView, LoginView,LogoutView
+from .views import delete_book,add_book,edit_book, list_books, LibraryDetailView, LoginView,LogoutView
 from . import views
 
 urlpatterns = [
@@ -17,5 +17,9 @@ urlpatterns = [
     path('admin-page/', admin_view.admin_view, name='admin-page'),
     path('librarian-page/', librarian_view.librarian_view, name='librarian-page'),
     path('member-page/', member_view.member_view, name='member-page'),
+    
+    path('book/add/', add_book, name='add-book'),
+    path('book/edit/<int:pk>/', edit_book, name='edit-book'),
+    path('book/delete/<int:pk>/', delete_book, name='delete-book'),
 ]
 
