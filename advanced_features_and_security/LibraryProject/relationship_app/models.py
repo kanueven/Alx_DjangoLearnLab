@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .managers import UserManager
 
 # Create your models here.
 class Author(models.Model):
@@ -41,6 +42,7 @@ class CustomUser(AbstractUser):
         null=True,
         blank=True
     )
+    objects = UserManager()
     def __str__(self):
         return self.username
 
