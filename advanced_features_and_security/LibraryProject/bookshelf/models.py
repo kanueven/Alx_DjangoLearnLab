@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from .managers import UserManager
 
 # Create your models here.
 class Book(models.Model):
@@ -7,3 +9,15 @@ class Book(models.Model):
     publication_year = models.IntegerField()
     def __str__(self):
         return self.title
+    
+#custmize User Profile
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(
+        upload_to='profile_photos/',
+        null=True,
+        blank=True
+    )
+    objects = UserManager()
+    def __str__(self):
+        return self.username
