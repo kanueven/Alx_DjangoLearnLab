@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 #Custom user
-AUTH_USER_MODEL = 'relationship_app.UserCustom'
+AUTH_USER_MODEL = 'relationship_app.CustomUser'
 
 
 # Application definition
