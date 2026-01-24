@@ -13,8 +13,9 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Book, BookAdmin)
 
 #register custom user model
-@admin.register(CustomUser)
-class ModelAdmin(UserAdmin):
+
+class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Information', {'fields': ('date_of_birth', 'profile_photo')}),
     )
+admin.site.register(CustomUser, CustomUserAdmin)
