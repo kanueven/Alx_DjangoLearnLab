@@ -47,4 +47,17 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
+#new model to do permission example
+class Vlogs(models.Model):
+    title = models.CharField(max_length=200)
+    url = models.URLField()
+    def __str__(self):
+        return self.title
+    class Meta:
+        permissions = [
+            ("can_view", "Can view vlog"),
+            ("can_create", "Can create vlog"),
+            ("can_edit", "Can edit vlog"),
+            ("can_delete", "Can delete vlog"),
+        ]
 
