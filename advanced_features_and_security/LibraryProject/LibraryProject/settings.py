@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 #Custom user
 AUTH_USER_MODEL = 'relationship_app.CustomUser'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Application definition

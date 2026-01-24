@@ -31,7 +31,7 @@ class LibraryDetailsView(DetailView):
     context_object_name = 'library'
     
 #Authentification views (login, logout, register)
-def login_view(request):
+def LoginView(request):
     if request.method == 'POST':
         #login form submission handling would go here
         username = request.POST.get('username')
@@ -46,11 +46,11 @@ def login_view(request):
             return render(request, 'relationship_app/login.html')
     return render(request, 'relationship_app/login.html')
 
-def logout_view(request):
+def LogoutView(request):
     logout(request)
     return redirect('login')
 
-def register_view(request):
+def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
