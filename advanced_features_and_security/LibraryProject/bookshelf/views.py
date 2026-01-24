@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.auth.decorator import permission_required
 from django.shortcuts import get_object_or_404, redirect,render
-from .models import Vlogs
+from .models import Book, Vlogs
 from .forms import VlogForm
 from django.views.generic.list import ListView
 
 # Create your views here.
+# Function-based view for listing books
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 # List view — anyone with can_view permission can see
 class VlogListView(ListView):
     model = Vlogs
