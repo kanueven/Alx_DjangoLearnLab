@@ -10,7 +10,8 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-class UserManager(BaseUserManager):
+#Custom user manager
+class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError("The Email must be set")
@@ -41,7 +42,7 @@ class CustomUser(AbstractUser):
         null=True,
         blank=True
     )
-    objects = UserManager()
+    objects = CustomUserManager()
     
     def __str__(self):
         return self.username
