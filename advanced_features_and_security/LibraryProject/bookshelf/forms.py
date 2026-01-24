@@ -1,7 +1,7 @@
 from django import forms
 from .models import Vlogs
 
-class VlogForm(forms.ModelForm):
+class ExampleForm(forms.ModelForm):
     class Meta:
         model = Vlogs
         fields = ['title', 'url']

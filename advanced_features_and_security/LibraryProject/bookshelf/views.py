@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect,render
 from .models import Book, Vlogs
-from .forms import VlogForm
+from .forms import ExampleForm
 from django.views.generic.list import ListView
 
 # Create your views here.
@@ -24,12 +24,12 @@ class VlogListView(ListView):
 @permission_required('bookshelf.add_vlog', raise_exception=True)
 def add_vlog(request):
     if request.method == 'POST':
-        form = VlogForm(request.POST)
+        form = ExampleForm(request.POST)
         if form .is_valid():
             form.save()
             return redirect('book-list')
     else:
-        form = VlogForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/add_vlog.html', {'form': form})
 
 #edit view — only users with edit-vlog permission can edit
@@ -37,12 +37,12 @@ def add_vlog(request):
 def edit_vlog(request, vlog_id):
     vlog = get_object_or_404(Vlogs, id=vlog_id)
     if request.method == 'POST':
-        form = VlogForm(request.POST, instance=vlog)
+        form = ExampleForm(request.POST, instance=vlog)
         if form.is_valid():
             form.save()
             return redirect('vlog-list')
     else:
-        form = VlogForm(instance=vlog)
+        form = ExampleForm(instance=vlog)
     return render(request, 'bookshelf/edit_vlog.html', {'form': form})
 
 #delte view — only users with delete_vlog permission can delete
