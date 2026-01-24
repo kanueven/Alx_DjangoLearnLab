@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.auth.decorator import permission_required
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect,render
 from .models import Book, Vlogs
 from .forms import VlogForm
