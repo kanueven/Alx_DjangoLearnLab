@@ -33,11 +33,18 @@ X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True # Stops browsers from guessing content type
 
 #enforce that cookies are sent over HTTPS only.
+# Only send CSRF cookies over HTTPS
 CSRF_COOKIE_SECURE = True
+# Only send session cookies over HTTPS
 SESSION_COOKIE_SECURE = True
 
-SECURE_HSTS_SECONDS = 31536000  # Enforce HSTS for one year
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+# Instruct browsers to only use HTTPS for this site for 1 year (31536000 seconds)
+SECURE_HSTS_SECONDS = 31536000
+# Include all subdomains in HSTS policy
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# Allow your site to be preloaded into browser HSTS lists
 SECURE_HSTS_PRELOAD = True
 
 #Custom user
