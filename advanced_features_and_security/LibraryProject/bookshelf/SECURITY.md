@@ -25,3 +25,18 @@
   CSP_DEFAULT_SRC = ("'self'",)
   CSP_SCRIPT_SRC = ("'self'", "ajax.googleapis.com")
   CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
+
+## HTTPS and Secure Redirects (Step 4)
+
+Server-level HTTPS configuration is handled by the deployment environment.
+
+In production, HTTPS is enforced using the web server (e.g., Nginx or Apache),
+where SSL/TLS certificates are installed and HTTP traffic is redirected to HTTPS.
+
+Example Nginx configuration:
+- Port 80 redirects to HTTPS
+- Port 443 serves the Django application securely
+- HSTS headers are enabled at the server level
+
+In local development, HTTPS is not enforced because Django’s development
+server does not support SSL.
