@@ -40,3 +40,18 @@ Example Nginx configuration:
 
 In local development, HTTPS is not enforced because Django’s development
 server does not support SSL.
+<VirtualHost *:80>
+    ServerName yourdomain.com
+    Redirect permanent / https://yourdomain.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName yourdomain.com
+    SSLEngine on
+    SSLCertificateFile /path/to/cert.pem
+    SSLCertificateKeyFile /path/to/key.pem
+
+    ProxyPass / http://127.0.0.1:8000/
+    ProxyPassReverse / http://127.0.0.1:8000/
+    RequestHeader set X-Forwarded-Proto "https"
+</VirtualHost>
