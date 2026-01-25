@@ -47,6 +47,11 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # Allow your site to be preloaded into browser HSTS lists
 SECURE_HSTS_PRELOAD = True
 
+# Tell Django to trust the proxy header for HTTPS
+# Only use this if your app is behind a trusted proxy like Nginx or Heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 #Custom user
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 MEDIA_URL = '/media/'
