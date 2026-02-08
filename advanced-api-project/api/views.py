@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+    
 from .models import Book
 from .serializers import BookSerializer
 
@@ -10,6 +12,7 @@ from .serializers import BookSerializer
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['author', 'publication_year']  # Allow filtering by author and published date 
     search_fields = ['title', 'author']  # Allow searching by title and author
     ordering_fields = ['publication_year','title']  # Allow ordering by published date
