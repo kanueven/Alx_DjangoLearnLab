@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework #noqa: F401
+
 from rest_framework import filters
+from rest_framework.exceptions import NotFound
 
 from .models import Book
 from .serializers import BookSerializer
@@ -49,8 +51,25 @@ class BookUpdateView(generics.UpdateAPIView):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]  # Allow logged user to update a book
     
+    def get_object(self):
+        pk = self.request.data.get('pk')
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            from rest_framework.exceptions import NotFound
+            raise NotFound(detail=f"Book with pk={pk} not found")
+    
 #DeleteView for deleting a book
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
+    def get_object(self):
+        # For DELETE, pull pk from query params if not in request.data
+        pk = self.request.data.get('pk') or self.request.query_params.get('pk')
+        if not pk:
+            raise NotFound("Missing 'pk' for deleting book")
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise NotFound(f"Book with pk={pk} not found")
