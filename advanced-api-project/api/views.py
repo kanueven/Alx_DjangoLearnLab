@@ -11,19 +11,6 @@ from .serializers import BookSerializer
 # Create your views here.
 #Implement a set of generic views for the Book model to handle CRUD operations
 #retrieve all books
-class BookListView(generics.ListAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['author', 'publication_year']  # Allow filtering by author and published date 
-    search_fields = ['title', 'author']  # Allow searching by title and author
-    ordering_fields = ['publication_year','title']  # Allow ordering by published date
-    from rest_framework import generics, filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from django_filters.rest_framework import DjangoFilterBackend
-from .models import Book
-from .serializers import BookSerializer
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
