@@ -4,6 +4,7 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,
 from .forms import CustomUserCreationForm,ProfileUpdateForm,UserUpdateForm,PostForm
 from django.contrib.auth import logout
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -108,22 +109,32 @@ class PostDetailView(DetailView):
 
 # CRUD operations for blog posts  using class-based views
 # only logged in users can create, update or delete posts
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_form.html'
+    success_url = reverse_lazy('post-list')  # Redirect to post list after successful creation
     def form_valid(self, form):
         form.instance.author = self.request.user  # Set the author to the current user
         return super().form_valid(form)
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'post_form.html'
+    success_url = reverse_lazy('post-list')  # Redirect to post list after successful update
     def form_valid(self, form):
         form.instance.author = self.request.user  # Ensure the author remains unchanged
         return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author  # Only allow the author to update the post
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'post_confirm_delete.html'
     success_url = reverse_lazy('post-list')
+    
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author  # Only allow the author to delete the post

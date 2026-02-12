@@ -2,6 +2,8 @@
 {% block content %}
 
 <h1>Blog Posts</h1>
+<a href="{% url 'post-create' %}">Create New Post</a>
+<hr>
 
 {% for post in posts %}
     <article>
@@ -13,6 +15,9 @@
         <p>By {{ post.author }} | {{ post.date_posted }}</p>
         <p>{{ post.content|truncatewords:20 }}</p>
     </article>
+    <hr>
+    {%empty%}
+    <p>No posts available.</p>
 {% endfor %}
 
 {% endblock %}
