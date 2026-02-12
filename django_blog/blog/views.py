@@ -14,20 +14,28 @@ def registerPage(request):
 
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
+        print("Form created, about to validate") 
         if form.is_valid():
-            form.save()
+            print("Form is VALID")
+            user =  form.save()
+            print(f"User saved: {user.username}")
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+            print("Redirecting to blog-home") 
             return redirect('blog-home')
         else:
+            print("Form is INVALID")                         # 7
+            print("Errors:", form.errors.as_json()) 
             messages.error(request, 'Failed to register. Correct your details.')
 
     else:
+        print("GET request") 
         form = CustomUserCreationForm()
         
     print("register_form in context:", form)
 
     context = {'register_form': form, 'page': 'register'}
+    print("Rendering login_register.html") 
     return render(request, 'login_register.html', context)
 
 
@@ -83,6 +91,7 @@ def logout_view(request):
 
 
 def home(request):
+    print("=== home view ===") 
     posts = Post.objects.all()
     context = {'posts':posts    }
     return render(request, 'home.html',context)
