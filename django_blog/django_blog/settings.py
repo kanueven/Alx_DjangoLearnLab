@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Authentication
+LOGIN_REDIRECT_URL = 'blog:profile'   # After login go to profile
+LOGOUT_REDIRECT_URL = 'blog:login'    # After logout go to login
+LOGIN_URL = 'blog:login'              # If not logged in, redirect to login page
+
+# Media files (for profile pictures)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Application definition
 
@@ -78,6 +86,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'django_blog_db',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'your_db_password', 
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
     }
 }
 
