@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile,Post
+from .models import Profile,Post,Comment
 from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserCreationForm(UserCreationForm):
@@ -28,9 +28,10 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
         
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length=150)
-    password = forms.CharField(widget=forms.PasswordInput)
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
 
 class PostForm(forms.ModelForm):
     class Meta:

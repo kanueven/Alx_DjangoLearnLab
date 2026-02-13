@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
-from .views import PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, PostListView
-from django.contrib.auth import views as auth_views
+from .views import PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, PostListView,CommentCreateView,CommentUpdateView,CommentDeleteView
+
+
 urlpatterns = [
     path('', views.home, name='blog-home'),
     # authenitfication urls
@@ -10,11 +11,16 @@ urlpatterns = [
     path('login/', views.login_view, name='blog-login'),
     path('logout/', views.logout_view, name='blog-logout'),
     
-    # crud urls
+    # crud urls for posts
     path('post/', PostListView.as_view(), name='post-list'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    
+     # Comment URLs
+    path('post/<int:post_id>/comment/new/', CommentCreateView.as_view(), name='comment-create'),
+    path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),
 ]
 
