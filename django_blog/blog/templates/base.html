@@ -9,7 +9,13 @@
     <script src="{% static 'js/scripts.js' %}"></script>
     
     <!--Navbar here-->
-<nav></nav>
+<nav>
+    <form action="get" class="">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+
+    </form>
+</nav>
 </head>
 <body>
 {%block content%}

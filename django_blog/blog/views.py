@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
+from django.db.models import Q
+
 
 # Create your views here.
 def registerPage(request):
@@ -106,7 +108,7 @@ class PostListView(ListView):
     ordering = ['-published_date']  # Order posts by published date (newest first)
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'blog/post_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Add comment form and comments list to the context
@@ -188,3 +190,35 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+    
+#search functionality
+class  SearchResults(ListView):
+    model = Post
+    template = 'blog/search_results.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Post.objects.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(tags__name__icontains=query)
+            ).distinct()
+            
+        return Post.objects.none()
+    
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'   # reuse your existing list template
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs['tag_slug']
+        return Post.objects.filter(tags__name__iexact=tag_slug).distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = self.kwargs['tag_slug']   # optional: display tag name
+        return context
+    
