@@ -158,7 +158,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         # automatically set the author to the current user and associate the comment with the correct post
         form.instance.author = self.request.user  
-        post = get_object_or_404(Post, pk=self.kwargs['post_id'])
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
         form.instance.post=post     
         return super().form_valid(form)
     
