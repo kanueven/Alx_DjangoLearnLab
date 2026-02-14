@@ -30,6 +30,9 @@ form {
     max-width: 400px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+input{
+    border: 1px solid #ccc;
+}
 
 button {
     background-color: #333;
