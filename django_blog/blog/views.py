@@ -41,7 +41,7 @@ def registerPage(request):
 
     context = {'register_form': form, 'page': 'register'}
     print("Rendering login_register.html") 
-    return render(request, 'login_register.html', context)
+    return render(request, 'blog/register.html', context)
 
 
 @login_required
@@ -86,7 +86,7 @@ def login_view(request):
     
 
     context = {'page': 'login'}
-    return render(request, 'login_register.html', context)
+    return render(request, 'blog/login.html', context)
 
 def logout_view(request):
     # Handle logout logic here
