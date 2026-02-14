@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Authentication
-LOGIN_REDIRECT_URL = 'blog:profile'   # After login go to profile
+LOGIN_REDIRECT_URL = 'blog:home'   # After login go to profile
 LOGOUT_REDIRECT_URL = 'blog:login'    # After logout go to login
 LOGIN_URL = 'blog:login'              # If not logged in, redirect to login page
 
@@ -132,7 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR/'staticfiles'
+STATIC_ROOT = BASE_DIR/'blog'/'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
