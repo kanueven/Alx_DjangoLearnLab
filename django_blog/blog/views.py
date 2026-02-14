@@ -48,7 +48,7 @@ def registerPage(request):
 def profile(request):
     if request.method == 'POST':
         updateform =  UserUpdateForm(request.POST, instance=request.user)
-        profileform = ProfileUpdateForm(request.POST,request.FILES, instance=request.user)
+        profileform = ProfileUpdateForm(request.POST,request.FILES, instance=request.user.profile)
         if updateform.is_valid() and  profileform.is_valid():
             updateform.save()
             profileform.save()
