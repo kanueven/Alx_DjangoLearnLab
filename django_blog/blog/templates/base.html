@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/scripts.js' %}"></script>
     
-    <!--Navbar here-->
+</head>
+<body>
+      <!--Navbar here-->
 <nav>
     <form method="get" action="{% url 'search' %}">
         <input type="text" name="q" placeholder="Search...">
@@ -16,9 +18,8 @@
 
     </form>
 </nav>
-</head>
-<body>
 {%block content%}
+
 {%endblock%}
 </body>
 </html>

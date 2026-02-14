@@ -3,13 +3,15 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='posts')
+    author  = models.ForeignKey(User,on_delete=models.CASCADE,related_name='posts')
+    tags = TaggableManager(blank=True)
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
     def __str__(self):

@@ -59,7 +59,7 @@ def profile(request):
     else:
         updateform = UserUpdateForm(instance=request.user)
         profileform = ProfileUpdateForm(instance=request.user.profile)
-        context = {'u-form': updateform, 'profile_form': profileform}
+        context = {'u_form': updateform, 'profile_form': profileform}
     return render(request, 'profile.html', context)
 
 def login_view(request):
@@ -133,7 +133,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('post-list')  # Redirect to post list after successful update
     def form_valid(self, form):
-        form.instance.author = self.request.user  # Ensure the author remains unchanged
+        
         return super().form_valid(form)
     
     def test_func(self):
