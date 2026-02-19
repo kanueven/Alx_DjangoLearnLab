@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets,permissions,filters
 from .models import Post,Comment
 from .serializers import PostSerializer, CommentSerializer
+from rest_framework.views import APIView
 # Create your views here.
 #CRUD Operations for POst
 # Implement permissions to ensure users can only edit or delete their own posts and comments
@@ -30,3 +31,12 @@ class CommentViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
+        
+# feed functionality
+class FeedView(APIView):
+    permission_class = [permissions.IsAuthenticated]
+    def get(self,request):
+        user_following = request.user.following.all()
+        posts = Post.objects.filter(author__in = user_following).order_by('-created_at')
+        serializer = PostSerializer
+        return Response(serializer.data)
