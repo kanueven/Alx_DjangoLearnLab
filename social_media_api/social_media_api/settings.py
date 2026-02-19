@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework.authtoken',
 ]
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

@@ -1,10 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status, permissions,generics
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from .models import CustomUser
 
 
 class RegisterView(APIView):
@@ -45,10 +46,11 @@ class ProfileView(APIView):
         return Response(serializer.data)
 
 # follow user
-class FollowerUserView(APIView):
+class FollowerUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.all()
     def post(self,request,user_id):
-        user_follow = get_object_or_404(User,id=user_id)
+        user_follow = get_object_or_404(CustomUser,id=user_id)
         
         if user_follow == request.user:
            return Response(
@@ -61,10 +63,11 @@ class FollowerUserView(APIView):
             status = status.HTTP_200_OK
         )
 # unfollow user
-class UnfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.all()
     def post(self,request,user_id):
-        user_unfollow = get_object_or_404(User,id=user_id)
+        user_unfollow = get_object_or_404(CustomUser,id=user_id)
         
         if user_unfollow == request.user:
            return Response(
